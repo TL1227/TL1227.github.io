@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tower RPG</title>
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body>
+  <main>
+    <a href="../../index.html">← Back</a>
+    <h1>Tower RPG</h1>
+	<img src="trpg01.png" alt="A screenshot of tower rpg" />
+    <p>
+        I've been working through the excellent <a href="https://learnopengl.com/">learnopengl</a> website
+        and once I got to the chapter where you place 3D cubes on the screen I thought "Surely this is
+        enough to make a game now right?"
+    </p>
+
+    <p>
+        I layed down some blocks, splapped an old casle brick texture on them and achieved the above image.
+    </p>
+
+    <p>
+        It reminded me of <i>Dungeons & Dragons: Warriors of the Eternal Sun</i> for the Mega Drive. A game I remember 
+        finding a bit too hard back in the day. (In fairness, I was four.)
+    </p>
+
+    <p>
+        Instead of dusting off the mega drive I figured it would probably be easier to try and make <i>my own</i> 
+        dungeon crawling game.
+    </p>
+
+    <h2>The Basics</h2>
+
+    <p>
+        I went back to the tutorial and modified the camera code to create something akin to first person dungeon 
+        crawlers. You can go forward, backward and rotate left and right.
+    </p>
+
+    <p>
+        It was surprisingly satisfying to walk around this little grid of cubes I'd built, but there was a problem.
+        The cube positions were all hard coded in a vector array. I wanted something a little easier to play with 
+        so I ditched it for a simple 2D char array instead.
+    </p>
+
+	<img src="trpg02.png" alt="The char array code" />
+
+    <p>
+        Because the game is grid based, every square will take up the same amount of space. This means I don't
+        actually need to explicitly specify the x, z positions. I can just move one unit along and down the array.
+        Different characters represent different tiles. So currently '#' marks the wall and 's' marks the player's
+        starting position.
+    </p>
+
+    <p>
+        Here is the very simple code that loops through the array and renders the code. It also adds on a roof and floor.
+        Although I may want to do that manually as the project moves one.
+        <img src="trpgcode01.png" alt="The render loop code" />
+    </p>
+
+    <p>
+        Here is the actual contents of RenderCube()
+        <img src="trpgcode02.png" alt="The render code" />
+    </p>
+
+    <h2>The Map Format</h2>
+
+    <p>
+        Something that got me excited about this format is that you could build maps using nothing but plaintext!
+        As a programmer, this means getting to use more vim or emacs. But for everyone else it means building maps
+        that would be <i>very</i> easy to share. You could just copy paste a map into discord and instantly share
+        it with your friends.
+    </p>
+    <p>
+        The only flaw with this plan is that editing text files this way kinda sucks. Even with a monospaced font
+        it can be a massive pain to just keep the grid aligned. It sounded great on paper, but making edits felt 
+        really fragile. <i>If only there was a better way.</i>
+    </p>
+
+    <h2>Enter Tower Tool!</h2>
+
+        <img src="ttool01.png" alt="Tower tool screenshot" />
+    <p>
+        Tower Tool is a WPF app I've started working on that will allow me to draw these maps in a more 
+        user friendly gui-based way. Essentially you get a grid and some brushes, then you can just paint
+        in the grid.
+    </p>
+    <p>
+        Here's the map from earlier, drawn using the tower tool.
+        <img src="ttool02.png" alt="The old map made new again!" />
+    </p>
+    <p>
+        Now that's a lot nicer to look at, and much easier to make maps with. Once the map is ready it
+        can be exported to a textfile that the Tower Rpg game will (eventually) be able to load in.
+        Here is all of it side by side.
+    </p>
+    <p>
+        <img src="ttool03.png" alt="Maps maps maps" />
+    </p>
+
+    <h2>Almost There</h2>
+
+    <p>
+        We've almost created a tool to help the development of our new game much easier. We still have
+        one last step: wiring it all up! Currently we're still reading that raw string literal.
+    </p>
+    <p>
+        I'm going to get working on that now, I hope you'll join me when I'm finished.
+    </p>
+    <p>
+        -Tosh
+    </p>
+  </main>
+</body>
+</html>

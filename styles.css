@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+:root {
+  --bg: #0d0d0d;
+  --fg: #eaeaea;
+  --accent: #d64545;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+header {
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+}
+
+img {
+	max-width: 750px
+}
+
+.subtitle {
+  opacity: 0.7;
+  margin-top: -0.5rem;
+}
+
+nav {
+  margin-top: 1rem;
+}
+
+nav a {
+  color: var(--fg);
+  text-decoration: none;
+  margin: 0 0.75rem;
+  opacity: 0.8;
+  transition: 0.2s;
+}
+
+nav a:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+
+main {
+  max-width: 750px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+section h2 {
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.25rem;
+}
+
+.project-card {
+  background: #1a1a1a;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  transition: transform 0.2s;
+}
+
+.project-card:hover {
+  transform: translateY(-2px);
+}
+
+.project-card a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 2rem 1rem;
+  opacity: 0.6;
+}
