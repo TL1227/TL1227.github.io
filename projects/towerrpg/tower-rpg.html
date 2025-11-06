@@ -1,131 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tower RPG</title>
-  <link rel="stylesheet" href="../../styles.css" />
-</head>
-<body>
-  <main>
-    <a href="../../index.html">← Back</a>
-    <h1>Tower RPG</h1>
-	<a href="trpg01.png" target="_blank">
-		<img src="trpg01.png" alt="A screenshot of Tower RPG" />
-	</a>
-    <p>
-        I've been working through the excellent <a href="https://learnopengl.com/">LearnOpenGL</a> website
-        and once I got to the chapter where you place 3D cubes on the screen I thought "Surely this is
-        enough to make a game now right?"
-    </p>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tower RPG</title>
+        <link rel="stylesheet" href="../../styles.css" />
+    </head>
+    <body>
+        <main>
+            <a href="../../index.html">← Back</a>
+            <h1>Tower RPG</h1>
+            <a href="trpg01.png" target="_blank">
+                <img src="trpg01.png" alt="A screenshot of Tower RPG" />
+            </a>
+            <p>
+                I've been working through the excellent <a href="https://learnopengl.com/">LearnOpenGL</a> website
+                and once I got to the chapter where you place 3D cubes on the screen I thought <i>"Surely this is
+                    enough to make a game now right?"</i>
+            </p>
 
-    <p>
-        I layed down some blocks, splapped an old casle brick texture on them and achieved the above image.
-    </p>
+            <p>
+                I laid down some blocks, slapped an old castle brick texture on them and achieved the above image.
+            </p>
 
-    <p>
-        It reminded me of <i>Dungeons & Dragons: Warriors of the Eternal Sun</i> for the Mega Drive. A game I remember 
-        finding a bit too hard back in the day. (In fairness, I was four.)
-    </p>
+            <p>
+                It reminded me of <i>Dungeons & Dragons: Warriors of the Eternal Sun</i> for the Mega Drive. A game I remember 
+                finding a bit too hard back in the day. (In fairness, I was four.)
+            </p>
 
-    <p>
-        Instead of dusting off the mega drive I figured it would probably be easier to try and make <i>my own</i> 
-        dungeon crawling game.
-    </p>
+            <p>
+                Instead of dusting off the mega drive I figured it would probably be easier to try and make <i>my own</i> 
+                dungeon crawling game.
+            </p>
 
-    <h2>The Basics</h2>
+            <h2>The Basics</h2>
 
-    <p>
-        I went back to the tutorial and modified the camera code to create something akin to first person dungeon 
-        crawlers. You can go forward, backward and rotate left and right.
-    </p>
+            <p>
+                I went back to the tutorial and modified the camera code to create something akin to first person dungeon 
+                crawlers. You can go forward, backward and rotate left and right.
+            </p>
 
-    <p>
-        It was surprisingly satisfying to walk around this little grid of cubes I'd built, but there was a problem.
-        The cube positions were all hard coded in a vector array. I wanted something a little easier to play with 
-        so I ditched it for a simple 2D char array instead.
-    </p>
+            <p>
+                It was surprisingly satisfying to walk around this little grid of cubes I'd built, but there was a problem.
+                The cube positions were all hard coded in a vector array. I wanted something a little easier to play with 
+                so I ditched it for a simple 2D char array instead.
+            </p>
 
-	<a href="trpg02.png" target="_blank">
-		<img src="trpg02.png" alt="The char array code" />
-	</a>
+            <a href="trpg02.png" target="_blank">
+                <img src="trpg02.png" alt="The char array code" />
+            </a>
 
-    <p>
-        Because the game is grid based, every square will take up the same amount of space. This means I don't
-        actually need to explicitly specify the x, z positions. I can just move one unit along and down the array.
-        Different characters represent different tiles. So currently '#' marks the wall and 's' marks the player's
-        starting position.
-    </p>
+            <p>
+                Because the game is grid based, every square will take up the same amount of space. This means I don't
+                actually need to explicitly specify the x, z positions. I can just move one unit along and down the array.
+                Different characters represent different tiles. So currently '#' marks the wall and 's' marks the player's
+                starting position.
+            </p>
 
-    <p>
-        Here is the very simple code that loops through the array and renders the code. It also adds on a roof and floor.
-        Although I may want to do that manually as the project moves one.
-	<a href="trpgcode01.png" target="_blank">
-		<img src="trpgcode01.png" alt="The render loop code" />
-	</a>
-    </p>
+            <a href="charmap.png" target="_blank">
+                <img src="charmap.png" alt="The character map" />
+            </a>
 
-    <p>
-        Here is the actual contents of RenderCube()
-	<a href="trpgcode02.png" target="_blank">
-		<img src="trpgcode02.png" alt="The render code" />
-	</a>
-    </p>
+            <p>
+                Here is the very simple code that loops through the array and renders the code. It also adds on a roof and floor.
+                Although I may want to do that manually as the project moves one.
+                <a href="trpgcode01.png" target="_blank">
+                    <img src="trpgcode01.png" alt="The render loop code" />
+                </a>
+            </p>
 
-    <h2>The Map Format</h2>
+            <p>
+                Here is the actual contents of <code>RenderCube()</code>
+                <a href="trpgcode02.png" target="_blank">
+                    <img src="trpgcode02.png" alt="The render code" />
+                </a>
+            </p>
 
-    <p>
-        Something that got me excited about this format is that you could build maps using nothing but plaintext!
-        As a programmer, this means getting to use more vim or emacs. But for everyone else it means building maps
-        that would be <i>very</i> easy to share. You could just copy paste a map into discord and instantly share
-        it with your friends.
-    </p>
-    <p>
-        The only flaw with this plan is that editing text files this way kinda sucks. Even with a monospaced font
-        it can be a massive pain to just keep the grid aligned. It sounded great on paper, but making edits felt 
-        really fragile. <i>If only there was a better way.</i>
-    </p>
+            <h2>The Map Format</h2>
 
-    <h2>Enter Tower Tool!</h2>
+            <p>
+                Something that got me excited about this format is that you could build maps using nothing but plain text!
+                As a programmer, this means getting to use more Vim or Emacs. But for everyone else it means building maps
+                that would be <i>very</i> easy to share. You could just copy paste a map into discord and your friends 
+                would have instant access too it. It would also make building a website that could host a bunch of user
+                generated maps fairly trivial.
+            </p>
+            <p>
+                The only <i>flaw</i> with this plan is that editing text files this way kinda sucks. Even with a monospaced font
+                it can be a real pain to just keep everything aligned. It sounded great on paper, but making any kind of meaningful 
+                edit felt fragile. <i>If only there was a better way.</i>
+            </p>
 
-	<a href="ttool01.png" target="_blank">
-		<img src="ttool01.png" alt="Tower tool screenshot" />
-	</a>
-	
-    <p>
-        Tower Tool is a WPF app I've started working on that will allow me to draw these maps in a more 
-        user friendly gui-based way. Essentially you get a grid and some brushes, then you can just paint
-        in the grid.
-    </p>
-    <p>
-        Here's the map from earlier, drawn using the tower tool.
-		<a href="ttool02.png" target="_blank">
-			<img src="ttool02.png" alt="The old map made new again!" />
-		</a>
-    </p>
-    <p>
-        Now that's a lot nicer to look at, and much easier to make maps with. Once the map is ready it
-        can be exported to a textfile that the Tower Rpg game will (eventually) be able to load in.
-        Here is all of it side by side.
-    </p>
-    <p>
-		<a href="ttool03.png" target="_blank">
-			<img src="ttool03.png" alt="Maps maps maps" />
-		</a>
-    </p>
+            <h2>Enter Tower Tool!</h2>
 
-    <h2>Almost There</h2>
+            <a href="ttool01.png" target="_blank">
+                <img src="ttool01.png" alt="Tower tool screenshot" />
+            </a>
 
-    <p>
-        We've almost created a tool to help the development of our new game much easier. We still have
-        one last step: wiring it all up! Currently we're still reading that raw string literal.
-    </p>
-    <p>
-        I'm going to get working on that now, I hope you'll join me when I'm finished.
-    </p>
-    <p>
-        -Tosh
-    </p>
-  </main>
-</body>
+            <p>
+                Tower Tool is a WPF app I've started working on that will allow me to draw these maps in a more 
+                user friendly GUI-based way. Essentially you get a grid and some brushes, then you can just paint
+                in the grid.
+            </p>
+            <p>
+                Here's the map from earlier, drawn using the tower tool.
+                <a href="ttool02.png" target="_blank">
+                    <img src="ttool02.png" alt="The old map made new again!" />
+                </a>
+            </p>
+            <p>
+                Now that's a lot nicer to look at, and much easier to make maps with. Once the map is ready it
+                can be exported to a text file that Tower RPG will <i>eventually</i> be able to load in.
+                Here is the same map in all the various formats.
+            </p>
+            <p>
+                <a href="ttool03.png" target="_blank">
+                    <img src="ttool03.png" alt="Maps maps maps" />
+                </a>
+            </p>
+
+            <h2>Almost There</h2>
+
+            <p>
+                We've almost created a tool to help the development of our new game much easier. We still have
+                one last step: wiring it all up! Currently we're still just reading that raw string literal.
+            </p>
+            <p>
+                I'll be back when everything's "plugged in".
+            </p>
+            <p>
+                -Tosh
+            </p>
+        </main>
+    </body>
 </html>
